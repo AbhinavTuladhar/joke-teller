@@ -1,0 +1,7 @@
+@import "./base.css";
+
+#app {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+}
