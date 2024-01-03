@@ -1,8 +1,14 @@
 @import "./base.css";
 
 #app {
-  display: grid;
+  width: 100dvw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* display: grid;
   place-items: center;
-  place-content: center;
+  place-content: center; */
   height: 100%;
+  gap: 1rem;
 }
