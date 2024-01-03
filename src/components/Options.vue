@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+const checkedCategories = defineModel("checkedCategories");
+const checkedBlackLists = defineModel("checkedBlackLists");
+const checkedJokeTypes = defineModel("checkedJokeTypes");
+
 const categoryData = [
   { id: "Programming", label: "Programming" },
   { id: "Misc", label: "Misc" },
@@ -23,19 +27,12 @@ const jokeTypeData = [
   { id: "Single", label: "Single" },
   { id: "Double", label: "Double" },
 ];
-
-const checkedCategories = ref<string[]>([]);
-const checkedBlackLists = ref<string[]>([]);
-const checkedJokeTypes = ref<string[]>([]);
 </script>
 
 <template>
   <div class="options">
     <h2>Choose the options:</h2>
     <div class="options-wrapper">
-      {{ checkedCategories }}
-      {{ checkedBlackLists }}
-      {{ checkedJokeTypes }}
       <table>
         <tr>
           <td>Select the category or categories:</td>
@@ -123,6 +120,7 @@ table > tr > td {
   padding: 0.5rem 2rem;
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
   border: 1px solid white;
   border-radius: 12px;
 }
