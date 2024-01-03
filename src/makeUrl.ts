@@ -6,13 +6,15 @@
  * @returns 
  */
 const makeUrl = (categories: string[], blacklists: string[], jokeTypes: string[]) => {
-  const baseUrl = 'https://v2.jokeapi.dev/joke/'
-  const categoriesPart = categories.length > 0 ? categories.join(',') : 'Any'
-  const blacklistPart = blacklists.length > 0 ? '?blacklistFlags=' + blacklists.join(',') : ''
-  const typesPart = jokeTypes.length === 1 ? '?type=' + jokeTypes[0] : ''
+  const baseUrl = 'https://v2.jokeapi.dev/joke/';
+  const categoriesPart = categories.length > 0 ? categories.join(',') : 'Any';
+  const blacklistPart = blacklists.length > 0 ? `?blacklistFlags=${blacklists.join(',')}` : '';
+  const jokesPrefix = blacklistPart ? '&' : '?';
+  const jokeTypesPart = jokeTypes.length === 1 ? `${jokesPrefix}type=${jokeTypes[0]}` : '';
 
-  const finalUrl = `${baseUrl}${categoriesPart}${blacklistPart}${typesPart}`
-  return finalUrl
-}
+  const finalUrl = `${baseUrl}${categoriesPart}${blacklistPart}${jokeTypesPart}`;
+  return finalUrl;
+};
+
 
 export default makeUrl
