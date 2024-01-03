@@ -7,7 +7,7 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   color: white;
   background: #16161d;
   transition:
@@ -27,4 +27,7 @@ body {
     "Droid Sans",
     "Helvetica Neue",
     sans-serif;
+  display: grid;
+  /* place-items: center; */
+  place-content: center;
 }
