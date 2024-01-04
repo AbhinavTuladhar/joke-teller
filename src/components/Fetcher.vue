@@ -58,8 +58,9 @@ onMounted(() => {
 
     // Voice configuration
     utterer.value = utterThis;
-    utterer.value.rate = 1.5;
-    utterer.value.volume = 100;
+    utterer.value.rate = 1.25;
+
+    // Male british english voice
     utterer.value.voice = voiceList[3];
   }, 2000);
 });
@@ -90,7 +91,9 @@ onMounted(() => {
 }
 
 p {
+  max-width: 100%;
   text-align: center;
+  white-space: pre-line;
 }
 
 .loading-text {
