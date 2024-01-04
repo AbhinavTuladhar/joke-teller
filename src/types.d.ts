@@ -14,13 +14,13 @@ interface BaseJokeResponse {
   lang: string;
 }
 
-interface TwoPartJoke extends BaseJokeResponse {
+export interface TwoPartJoke extends BaseJokeResponse {
   type: 'twopart',
   setup: string;
   delivery: string;
 }
 
-interface OnePartJoke extends BaseJokeResponse {
+export interface OnePartJoke extends BaseJokeResponse {
   type: 'single',
   joke: string;
 }
@@ -36,4 +36,4 @@ interface NoJoke extends Partial<BaseJokeResponse> {
 
 // Use Partial to make certain keys optional
 // export type JokeResponse = TwoPartJoke | OnePartJoke | (NoJoke & Partial<BaseJokeResponse>);
-export type JokeResponse = TwoPartJoke | OnePartJoke;
+export type JokeResponse = OnePartJoke | TwoPartJoke;

@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import type { JokeResponse } from "@/types";
+import type { JokeResponse, TwoPartJoke, OnePartJoke } from "@/types";
 
 interface Props {
   url: string;
 }
-
-// setTimeout(() => {
-//   console.log(window.speechSynthesis.getVoices());
-// }, 1000);
 
 const props = defineProps<Props>();
 
@@ -16,9 +12,9 @@ const isInitialLoad = ref(true);
 const loading = ref(false);
 const error = ref<any>("");
 const apiResponse = ref<JokeResponse>();
-const synth = ref<SpeechSynthesis | null>();
+const synth = ref<SpeechSynthesis>(window.speechSynthesis);
 const voices = ref<SpeechSynthesisVoice[]>();
-const utterer = ref<SpeechSynthesisUtterance>();
+const utterer = ref<SpeechSynthesisUtterance>(new SpeechSynthesisUtterance());
 
 const fetchData = async (): Promise<void> => {
   loading.value = true;
@@ -40,12 +36,21 @@ const handleClick = async () => {
   isInitialLoad.value = false;
   await fetchData();
 
-  // @ts-ignore
-  utterer.value.text = apiResponse.value.joke;
-  // utterThis.voice = voices !== undefined ? voices?.value[3]
-  // const utterThis = new SpeechSynthesisUtterance("Insert funn joke here");
-  // @ts-ignore
-  synth.value?.speak(utterer?.value);
+  const { type: jokeType } = apiResponse.value || {};
+
+  let textToSpeak;
+  if (jokeType === "single") {
+    const response = apiResponse.value as OnePartJoke;
+    const { joke } = response;
+    textToSpeak = joke;
+  } else if (jokeType === "twopart") {
+    const response = apiResponse.value as TwoPartJoke;
+    const { setup, delivery } = response;
+    textToSpeak = setup + delivery;
+  }
+
+  utterer.value.text = textToSpeak || "Failed to fetch a joke";
+  synth.value?.speak(utterer.value);
 };
 
 onMounted(() => {
