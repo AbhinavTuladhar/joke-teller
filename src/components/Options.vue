@@ -25,7 +25,7 @@ const blacklistData = [
 
 const jokeTypeData = [
   { id: "Single", label: "Single" },
-  { id: "Double", label: "Double" },
+  { id: "Twopart", label: "Twopart" },
 ];
 </script>
 

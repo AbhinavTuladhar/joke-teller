@@ -4,8 +4,6 @@ import Fetcher from "./components/Fetcher.vue";
 import { ref, computed } from "vue";
 import makeUrl from "./makeUrl";
 
-const url = ref<string>("");
-
 const checkedCategories = ref<string[]>([]);
 const checkedBlackLists = ref<string[]>([]);
 const checkedJokeTypes = ref<string[]>([]);
