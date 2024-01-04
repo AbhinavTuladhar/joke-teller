@@ -46,7 +46,7 @@ const handleClick = async () => {
   } else if (jokeType === "twopart") {
     const response = apiResponse.value as TwoPartJoke;
     const { setup, delivery } = response;
-    textToSpeak = setup + delivery;
+    textToSpeak = setup + ". " + delivery;
   }
 
   utterer.value.text = textToSpeak || "Failed to fetch a joke";

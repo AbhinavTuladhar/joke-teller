@@ -19,7 +19,6 @@ const apiUrl = computed(() => {
 
 <template>
   <h1>Joke Teller</h1>
-  <p>Using the JokesAPI.</p>
   <Options
     v-model:checkedCategories="checkedCategories"
     v-model:checkedBlackLists="checkedBlackLists"
