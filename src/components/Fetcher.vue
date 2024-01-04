@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import type { JokeResponse } from "@/types";
 
 interface Props {
@@ -16,6 +16,9 @@ const isInitialLoad = ref(true);
 const loading = ref(false);
 const error = ref<any>("");
 const apiResponse = ref<JokeResponse>();
+const synth = ref<SpeechSynthesis | null>();
+const voices = ref<SpeechSynthesisVoice[]>();
+const utterer = ref<SpeechSynthesisUtterance>();
 
 const fetchData = async (): Promise<void> => {
   loading.value = true;
@@ -36,7 +39,30 @@ const fetchData = async (): Promise<void> => {
 const handleClick = async () => {
   isInitialLoad.value = false;
   await fetchData();
+
+  // @ts-ignore
+  utterer.value.text = apiResponse.value.joke;
+  // utterThis.voice = voices !== undefined ? voices?.value[3]
+  // const utterThis = new SpeechSynthesisUtterance("Insert funn joke here");
+  // @ts-ignore
+  synth.value?.speak(utterer?.value);
 };
+
+onMounted(() => {
+  setTimeout(() => {
+    const synthTemp = window.speechSynthesis;
+    const voiceList = synthTemp.getVoices();
+    const utterThis = new SpeechSynthesisUtterance();
+    synth.value = synthTemp;
+    voices.value = voiceList;
+
+    // Voice configuration
+    utterer.value = utterThis;
+    utterer.value.rate = 1.5;
+    utterer.value.volume = 100;
+    utterer.value.voice = voiceList[3];
+  }, 2000);
+});
 </script>
 
 <template>
