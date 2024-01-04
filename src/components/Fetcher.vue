@@ -12,9 +12,9 @@ const isInitialLoad = ref(true);
 const loading = ref(false);
 const error = ref<any>("");
 const apiResponse = ref<JokeResponse>();
-const synth = ref<SpeechSynthesis>(window.speechSynthesis);
-const voices = ref<SpeechSynthesisVoice[]>();
-const utterer = ref<SpeechSynthesisUtterance>(new SpeechSynthesisUtterance());
+const synth = window.speechSynthesis;
+const voices: SpeechSynthesisVoice[] = [];
+const utterer = new SpeechSynthesisUtterance();
 
 const fetchData = async (): Promise<void> => {
   loading.value = true;
@@ -49,24 +49,24 @@ const handleClick = async () => {
     textToSpeak = setup + ". " + delivery;
   }
 
-  utterer.value.text = textToSpeak || "Failed to fetch a joke";
-  synth.value?.speak(utterer.value);
+  utterer.text = textToSpeak || "Failed to fetch a joke";
+  synth?.speak(utterer);
 };
 
 onMounted(() => {
   setTimeout(() => {
     const synthTemp = window.speechSynthesis;
     const voiceList = synthTemp.getVoices();
-    const utterThis = new SpeechSynthesisUtterance();
-    synth.value = synthTemp;
-    voices.value = voiceList;
+
+    voiceList.forEach((voice) => {
+      voices.push(voice);
+    });
 
     // Voice configuration
-    utterer.value = utterThis;
-    utterer.value.rate = 1.25;
+    utterer.rate = 1.25;
 
     // Male british english voice
-    utterer.value.voice = voiceList[3];
+    utterer.voice = voiceList[3];
   }, 2000);
 });
 </script>
