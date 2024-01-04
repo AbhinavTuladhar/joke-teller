@@ -12,48 +12,30 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const response = ref();
+const isInitialLoad = ref(true);
 const loading = ref(false);
-const error = ref("");
+const error = ref<any>("");
 const apiResponse = ref<JokeResponse>();
-const joke = ref("");
-const setup = ref("");
-const delivery = ref("");
-const jokeType = ref("");
 
-const resetValues = () => {
-  joke.value = "";
-  setup.value = "";
-  delivery.value = "";
-  jokeType.value = "";
-};
+const fetchData = async (): Promise<void> => {
+  loading.value = true;
+  error.value = "";
 
-const processData = (response: any) => {
-  const { type = "" } = response;
-  if (type === "single") {
-    joke.value = response.joke;
-    jokeType.value = type;
-  } else if (type === "twopart") {
-    setup.value = response?.setup;
-    delivery.value = response?.delivery;
-    jokeType.value = type;
-  } else {
-    resetValues();
-    error.value = "No jokes with the given filters were found.";
+  try {
+    const response = await fetch(props.url);
+    const data = await response.json();
+    apiResponse.value = data;
+  } catch (error: any) {
+    console.error(error);
+    error.value = error;
+  } finally {
+    loading.value = false;
   }
 };
 
-const fetchData = async (): Promise<JokeResponse> => {
-  loading.value = true;
-  const response = await fetch(props.url);
-  const data = await response.json();
-  loading.value = false;
-  return data;
-};
-
 const handleClick = async () => {
-  const fetchedData = await fetchData();
-  processData(fetchedData);
+  isInitialLoad.value = false;
+  await fetchData();
 };
 </script>
 
@@ -63,12 +45,13 @@ const handleClick = async () => {
     {{ url }}
   </div>
   <p class="loading-text" v-if="loading">Loading...</p>
-  <p v-else-if="jokeType === 'single'">
-    {{ joke }}
+  <p v-else-if="isInitialLoad"></p>
+  <p v-else-if="apiResponse?.type === 'single'">
+    {{ apiResponse.joke }}
   </p>
-  <p v-else-if="jokeType === 'twopart'">
-    {{ setup }} <br />
-    {{ delivery }}
+  <p v-else-if="apiResponse?.type === 'twopart'">
+    {{ apiResponse.setup }} <br />
+    {{ apiResponse.delivery }}
   </p>
   <p v-else>No joke with the above filters were found.</p>
 </template>

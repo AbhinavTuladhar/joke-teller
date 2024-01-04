@@ -1,7 +1,6 @@
 interface BaseJokeResponse {
   error: boolean;
   category: string;
-  type: string;
   flags: {
     nsfw: boolean;
     religious: boolean;
@@ -16,11 +15,13 @@ interface BaseJokeResponse {
 }
 
 interface TwoPartJoke extends BaseJokeResponse {
+  type: 'twopart',
   setup: string;
   delivery: string;
 }
 
 interface OnePartJoke extends BaseJokeResponse {
+  type: 'single',
   joke: string;
 }
 
