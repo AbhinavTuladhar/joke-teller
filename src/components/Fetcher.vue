@@ -43,6 +43,7 @@ const handleClick = async () => {
 
 // Just says the joke.
 const sayJoke = () => {
+  synth.cancel()
   const { type: jokeType } = apiResponse.value || {}
 
   let textToSpeak
