@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import Options from "./components/Options.vue";
-import Fetcher from "./components/Fetcher.vue";
-import { ref, computed } from "vue";
-import makeUrl from "./makeUrl";
+import Options from './components/Options.vue'
+import Fetcher from './components/Fetcher.vue'
+import { ref, computed } from 'vue'
+import makeUrl from './makeUrl'
 
-const checkedCategories = ref<string[]>([]);
-const checkedBlackLists = ref<string[]>([]);
-const checkedJokeTypes = ref<string[]>([]);
+const checkedCategories = ref<string[]>([])
+const checkedBlackLists = ref<string[]>([])
+const checkedJokeTypes = ref<string[]>([])
 
 const apiUrl = computed(() => {
   return makeUrl(
     checkedCategories.value,
     checkedBlackLists.value,
     checkedJokeTypes.value
-  );
-});
+  )
+})
 </script>
 
 <template>

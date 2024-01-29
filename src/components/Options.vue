@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const checkedCategories = defineModel("checkedCategories");
-const checkedBlackLists = defineModel("checkedBlackLists");
-const checkedJokeTypes = defineModel("checkedJokeTypes");
+const checkedCategories = defineModel('checkedCategories')
+const checkedBlackLists = defineModel('checkedBlackLists')
+const checkedJokeTypes = defineModel('checkedJokeTypes')
 
 const categoryData = [
-  { id: "Programming", label: "Programming" },
-  { id: "Misc", label: "Misc" },
-  { id: "Dark", label: "Dark" },
-  { id: "Pun", label: "Pun" },
-  { id: "Spooky", label: "Spooky" },
-  { id: "Christmas", label: "Christmas" },
-];
+  { id: 'Programming', label: 'Programming' },
+  { id: 'Misc', label: 'Misc' },
+  { id: 'Dark', label: 'Dark' },
+  { id: 'Pun', label: 'Pun' },
+  { id: 'Spooky', label: 'Spooky' },
+  { id: 'Christmas', label: 'Christmas' },
+]
 
 const blacklistData = [
-  { id: "Nsfw", label: "Nsfw" },
-  { id: "Religious", label: "Religious" },
-  { id: "Political", label: "Political" },
-  { id: "Racist", label: "Racist" },
-  { id: "Sexist", label: "Sexist" },
-  { id: "Explicit", label: "Explicit" },
-];
+  { id: 'Nsfw', label: 'Nsfw' },
+  { id: 'Religious', label: 'Religious' },
+  { id: 'Political', label: 'Political' },
+  { id: 'Racist', label: 'Racist' },
+  { id: 'Sexist', label: 'Sexist' },
+  { id: 'Explicit', label: 'Explicit' },
+]
 
 const jokeTypeData = [
-  { id: "Single", label: "Single" },
-  { id: "Twopart", label: "Twopart" },
-];
+  { id: 'Single', label: 'Single' },
+  { id: 'Twopart', label: 'Twopart' },
+]
 </script>
 
 <template>
