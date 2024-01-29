@@ -159,4 +159,9 @@ button {
     outline: 1px solid green;
   }
 }
+
+select {
+  width: fit-content;
+  margin-inline: 2rem;
+}
 </style>

@@ -109,9 +109,8 @@ table > tr > td {
 }
 
 .options {
-  width: 90%;
+  width: 95%;
   padding: 0.5rem 1rem;
-  margin-inline: auto;
   border: 2px solid white;
   border-radius: 10px;
 }
