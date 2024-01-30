@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRefs } from 'vue'
 import type { JokeResponse, TwoPartJoke, OnePartJoke } from '@/types'
 
 interface Props {
   url: string
 }
 
-const { url } = defineProps<Props>()
+const props = defineProps<Props>()
+const { url } = toRefs(props)
 
 const isInitialLoad = ref(true)
 const loading = ref(false)
@@ -22,7 +23,7 @@ const fetchData = async (): Promise<void> => {
   error.value = ''
 
   try {
-    const response = await fetch(url)
+    const response = await fetch(url.value)
     const data = await response.json()
     apiResponse.value = data
   } catch (error: any) {
