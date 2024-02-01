@@ -18,6 +18,8 @@ const voices = ref<SpeechSynthesisVoice[]>([])
 const utterer = new SpeechSynthesisUtterance()
 const selectedVoiceIndex = ref<number>(0)
 
+const isLoadingVoice = ref(false)
+
 const fetchData = async (): Promise<void> => {
   loading.value = true
   error.value = ''
@@ -64,6 +66,7 @@ const sayJoke = () => {
 
 // On initial load, a timeout is used in order to give the browser some time to load the voice list.
 onMounted(() => {
+  isLoadingVoice.value = true
   setTimeout(() => {
     const synthTemp = window.speechSynthesis
     const voiceList = synthTemp.getVoices()
@@ -75,6 +78,7 @@ onMounted(() => {
     // Voice configuration
     utterer.rate = 1
     utterer.voice = voices.value[0]
+    isLoadingVoice.value = false
   }, 5000)
 })
 
@@ -95,7 +99,12 @@ const handleVoiceChange = () => {
     v-model="selectedVoiceIndex"
     @click="handleVoiceChange"
   >
-    <option v-for="(voice, index) in voices" :key="voice.name" :value="index">
+    <option
+      v-if="voices.length > 0"
+      v-for="(voice, index) in voices"
+      :key="voice.name"
+      :value="index"
+    >
       {{ voice.name }}
     </option>
   </select>
