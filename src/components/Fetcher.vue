@@ -79,7 +79,7 @@ onMounted(() => {
     utterer.rate = 1
     utterer.voice = voices.value[0]
     isLoadingVoice.value = false
-  }, 5000)
+  }, 100)
 })
 
 // Executed whenever a separate voice is selected.

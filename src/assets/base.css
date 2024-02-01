@@ -27,7 +27,4 @@ body {
     "Droid Sans",
     "Helvetica Neue",
     sans-serif;
-  display: grid;
-  /* place-items: center; */
-  place-content: center;
 }
